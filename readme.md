@@ -2,7 +2,14 @@
 
 Sistema simples de Kanban React, Node.js e Docker.
 
-## Subindo o ambiente com Docker
+## Login Padrão
+
+O usuário padrão do sistema:
+
+* Usuário: letscode 
+* Senha: lets@123
+
+### Subindo o ambiente com Docker
 
 Primeiramente altere a permisão do script shell
 
@@ -16,7 +23,7 @@ Em seguida execute:
 ./up.sh
 ```
 
-## Subindo o ambiente sem Docker
+### Subindo o ambiente sem Docker
 
 Para subir o ambiente sem Docker basta entrar nas pastas e executar os comandos:
 

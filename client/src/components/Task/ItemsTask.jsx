@@ -55,7 +55,7 @@ const ItemsTask = ({ task, socket }) => {
                 {...provided.dragHandleProps}
                 className={`${task[1].title.toLowerCase()}__items`}
               >
-                <UpdateItem>
+                {task[0] !== 'done' && <UpdateItem>
                   <ButtonUpdate onClick={() => setShowUpdate({
                     show: !showUpdate?.show,
                     id: item.id
@@ -64,13 +64,14 @@ const ItemsTask = ({ task, socket }) => {
                       <MdOutlineEditOff size={40} color='red' /> :
                       <MdOutlineEdit size={40} />}
                   </ButtonUpdate>
-                </UpdateItem>
+                </UpdateItem>}
 
                 {showUpdate.show && showUpdate.id === item.id ?
                   <UpdateTask item={item} socket={socket}
                     status={task[0]} setShowUpdate={setShowUpdate} /> :
                   <ShowItem item={item} task={task} socket={socket} />
                 }
+
               </div>
             )}
           </Draggable>

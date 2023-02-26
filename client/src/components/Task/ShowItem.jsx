@@ -33,7 +33,7 @@ const ShowItem = ({ item, task, socket }) => {
 
       <ContainersButtons status={task[0]} item={item} socket={socket} />
 
-      <ContainerComments>
+      {task[0] !== 'done' && <ContainerComments>
         <Link
           to={`/comments/${task[1].title}/${item.id}`}
         >
@@ -41,7 +41,9 @@ const ShowItem = ({ item, task, socket }) => {
             ? `Ver os comentários`
             : "Adicionar comentário"}
         </Link>
-      </ContainerComments></>
+      </ContainerComments>}
+
+    </>
   )
 }
 
