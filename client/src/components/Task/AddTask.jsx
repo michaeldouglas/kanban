@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
+import * as DOMPurify from 'dompurify';
 
 import TokenContext from "../../contexts/Token";
 import Request from "../../library/Request/Request";
@@ -43,7 +44,7 @@ const AddTask = ({ socket }) => {
 
   const addHandler = async (lista, titulo, conteudo) => {
     await Request.post('cards',
-      { lista, titulo, conteudo: content }, token?.token);
+      { lista, titulo, conteudo: DOMPurify.sanitize(content) }, token?.token);
 
     socket.emit("createTask", { titulo });
     setTask("");

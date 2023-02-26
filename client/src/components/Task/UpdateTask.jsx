@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import styled from "styled-components";
 import media from "styled-media-query";
 import { MdSave } from "react-icons/md";
-
+import * as DOMPurify from 'dompurify';
 
 import Request from '../../library/Request/Request';
 import TokenContext from "../../contexts/Token";
@@ -53,7 +53,7 @@ const UpdateTask = ({ item, socket, status, setShowUpdate }) => {
     await Request.put(`cards/${id}`, {
       id,
       titulo: task,
-      conteudo: content,
+      conteudo: DOMPurify.sanitize(content),
       lista: status
     }, token?.token);
 
