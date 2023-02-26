@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import socketIO from "socket.io-client";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const socket = socketIO.connect("http://localhost:5000");
 
@@ -8,6 +9,7 @@ const Comments = () => {
   const { category, id } = useParams();
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket.emit("fetchComments", { category, id });
@@ -41,7 +43,10 @@ const Comments = () => {
           name='comment'
           required
         ></textarea>
-        <button className='commentBtn'>Adicionar Comentário</button>
+        <div className="comments__buttons">
+          <button className='commentBtn'>Adicionar Comentário</button>
+          <button className='commentBtn' onClick={() => navigate("/task")}>Voltar</button>
+        </div>
       </form>
       <div className='comments__section'>
         <h2>Lista de comentários</h2>

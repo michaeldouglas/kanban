@@ -131,6 +131,13 @@ const GlobalStyle = createGlobalStyle`
     `}
   }
 
+  .comments__buttons{
+    display: flex;
+    ${media.lessThan("small")`
+      flex-direction: column;
+    `}
+  }
+
   .comments__container {
     padding: 20px;
   }
@@ -163,6 +170,11 @@ const GlobalStyle = createGlobalStyle`
     color: #fff;
     height: 45px;
     cursor: pointer;
+    margin-right: 1rem;
+    border-radius: 30px;
+    ${media.lessThan("small")`
+      margin-top: 1rem;
+    `}
   }
 
   .comments__section {
