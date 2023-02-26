@@ -3,6 +3,7 @@ import styled from "styled-components";
 import media from "styled-media-query";
 import { MdSave } from "react-icons/md";
 import * as DOMPurify from 'dompurify';
+import MDEditor from '@uiw/react-md-editor';
 
 import Request from '../../library/Request/Request';
 import TokenContext from "../../contexts/Token";
@@ -16,6 +17,7 @@ const ContainerUpdateTask = styled.div`
   width: 100%;
   ${media.lessThan("small")`
     margin: 1rem;
+    padding: 0;
   `}
 `;
 
@@ -32,11 +34,15 @@ const FormUpdate = styled.form`
   justify-content: center;
 `;
 
-const TextAreaData = styled.textarea`
+const TextAreaData = styled(MDEditor)`
   width: 100%;
   padding: 10px 15px;
   margin-top: 0.5rem;
   margin-bottom: 0.8rem;
+`;
+
+const ContainerArea = styled.div`
+  width: 100%;
 `;
 
 
@@ -77,11 +83,13 @@ const UpdateTask = ({ item, socket, status, setShowUpdate }) => {
           required
           onChange={(e) => setTask(e.target.value)}
         />
-        <TextAreaData
-          value={content}
-          required
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <ContainerArea data-color-mode="light">
+          <TextAreaData
+            value={content}
+            onChange={setContent}
+            preview="edit"
+          />
+        </ContainerArea>
         <button className='updateTodoBtn'>ATUALIZAR <MdSave size={20} /></button>
       </ContainerUpdateTask>
     </FormUpdate>

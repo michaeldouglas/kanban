@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
 import * as DOMPurify from 'dompurify';
+import MDEditor from '@uiw/react-md-editor';
 
 import TokenContext from "../../contexts/Token";
 import Request from "../../library/Request/Request";
@@ -30,11 +31,15 @@ const InputData = styled.input`
   margin-bottom: 0.5rem;
 `;
 
-const TextAreaData = styled.textarea`
+const TextAreaData = styled(MDEditor)`
   width: 100%;
   padding: 10px 15px;
   margin-top: 0.5rem;
   margin-bottom: 0.8rem;
+`;
+
+const ContainerArea = styled.div`
+  width: 100%;
 `;
 
 const AddTask = ({ socket }) => {
@@ -68,11 +73,13 @@ const AddTask = ({ socket }) => {
           required
           onChange={(e) => setTask(e.target.value)}
         />
-        <TextAreaData
-          value={content}
-          required
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <ContainerArea data-color-mode="light">
+          <TextAreaData
+            value={content}
+            onChange={setContent}
+            preview="edit"
+          />
+        </ContainerArea>
         <button className='addTodoBtn'>ADICIONAR</button>
       </ContainerAddTask>
 

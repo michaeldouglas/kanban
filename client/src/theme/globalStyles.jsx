@@ -69,6 +69,9 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    ${media.lessThan("small")`
+      flex-direction: column;
+    `}
   }
 
   .done__wrapper,
@@ -79,6 +82,9 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     padding: 5px;
+    ${media.lessThan("small")`
+      width: 100%;
+    `}
   }
 
   .doing__wrapper>h3,
