@@ -44,6 +44,22 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     height: 43px;
+    border-radius: 25px;
+  }
+
+  .updateTodoBtn {
+    width: 150px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: ${greenColor};
+    color: #fff;
+    border: none;
+    outline: none;
+    height: 43px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
   }
 
   .container {

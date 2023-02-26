@@ -1,11 +1,13 @@
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import Markdown from 'marked-react';
-import media from "styled-media-query";
 
-import ContainersButtons from './Buttons/ContainersButtons';
+import media from "styled-media-query";
+import { MdOutlineEditOff, MdOutlineEdit } from "react-icons/md";
+
+import ShowItem from './ShowItem';
+import UpdateTask from './UpdateTask';
 
 const EmptyContent = styled.div`
   display: flex;
@@ -21,24 +23,22 @@ const EmptyContent = styled.div`
   `}
 `;
 
-const ContainerComments = styled.div`
-  text-align: right;
-  font-size: 14px;
-  cursor: pointer;
-  color: rgb(85, 85, 199);
+const UpdateItem = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
   ${media.lessThan("small")`
-    text-align: center;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 12px;
-    font-weight: bold;
+    justify-content: center;
   `}
-  &:hover {
-    text-decoration: underline;
-  }
+`;
+
+const ButtonUpdate = styled.span`
+  color: rgb(85,85,199);
+  cursor: pointer;
 `;
 
 const ItemsTask = ({ task, socket }) => {
+  const [showUpdate, setShowUpdate] = useState({ show: false, id: false });
   return (
     <>
       {task[1].items ? <>
@@ -55,23 +55,22 @@ const ItemsTask = ({ task, socket }) => {
                 {...provided.dragHandleProps}
                 className={`${task[1].title.toLowerCase()}__items`}
               >
-                <p>{item.title}</p>
+                <UpdateItem>
+                  <ButtonUpdate onClick={() => setShowUpdate({
+                    show: !showUpdate?.show,
+                    id: item.id
+                  })}>
+                    {showUpdate.show && showUpdate.id === item.id ?
+                      <MdOutlineEditOff size={40} color='red' /> :
+                      <MdOutlineEdit size={40} />}
+                  </ButtonUpdate>
+                </UpdateItem>
 
-                <Markdown breaks={true}>
-                  {`${item?.content}...`}
-                </Markdown>
-
-                <ContainersButtons status={task[0]} item={item} socket={socket} />
-
-                <ContainerComments>
-                  <Link
-                    to={`/comments/${task[1].title}/${item.id}`}
-                  >
-                    {item.comments.length > 0
-                      ? `Ver os comentários`
-                      : "Adicionar comentário"}
-                  </Link>
-                </ContainerComments>
+                {showUpdate.show && showUpdate.id === item.id ?
+                  <UpdateTask item={item} socket={socket}
+                    status={task[0]} setShowUpdate={setShowUpdate} /> :
+                  <ShowItem item={item} task={task} socket={socket} />
+                }
               </div>
             )}
           </Draggable>
