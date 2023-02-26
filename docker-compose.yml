@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  node:
+    image: node:18
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/srv/react-docker
+    working_dir: /srv/react-docker
+    command: 'npm start'
