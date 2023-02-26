@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Markdown from 'marked-react';
 import styled from "styled-components";
 import media from "styled-media-query";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import ContainersButtons from './Buttons/ContainersButtons';
 
@@ -22,14 +24,21 @@ const ContainerComments = styled.div`
   }
 `;
 
+const renderer = {
+  code(snippet, lang) {
+    return <SyntaxHighlighter key={this.elementId} language={lang} style={dark}>
+      {snippet}
+    </SyntaxHighlighter>;
+  },
+};
+
 const ShowItem = ({ item, task, socket }) => {
   return (
     <>
       <p>{item.title}</p>
 
-      <Markdown breaks={true}>
-        {`${item?.content}...`}
-      </Markdown>
+      <Markdown breaks={true}
+        value={item?.content} renderer={renderer} />
 
       <ContainersButtons status={task[0]} item={item} socket={socket} />
 
