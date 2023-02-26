@@ -1,11 +1,19 @@
 version: '3.8'
 
 services:
-  node:
-    image: node:18
+  client:
+    image: ${IMAGE_FRONT}
     ports:
-      - '3000:3000'
+      - ${FRONT_PORT}
     volumes:
       - ./client:/srv/react-docker
     working_dir: /srv/react-docker
     command: 'npm start'
+  back:
+    image: ${IMAGE_BACK}
+    ports:
+      - ${BACK_PORT}
+    volumes:
+      - ./back:/srv/react-docker
+    working_dir: /srv/react-docker
+    command: 'npm run dev'
